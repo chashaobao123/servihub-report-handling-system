@@ -8,18 +8,18 @@ datasource db {
 }
 
 model report {
-  id           BigInt      @id @default(autoincrement())
-  type         ReportType
-  target_id    BigInt
-  reason       String      @db.VarChar(255)
-  description  String?
-  submitted_by BigInt?
-  resolved_by  BigInt?
-  resolved_at  DateTime?
-  created_at   DateTime    @default(now())
+  id            BigInt      @id @default(autoincrement())
+  type          ReportType
+  target_id     BigInt
+  reason        String      @db.VarChar(255)
+  description   String?
+  submitted_by  BigInt?
+  resolved_by   BigInt?
+  resolved_at   DateTime?
+  created_at    DateTime    @default(now())
 
-  submitter    user?       @relation("ReportSubmittedBy", fields: [submitted_by], references: [id])
-  resolver     user?       @relation("ReportResolvedBy", fields: [resolved_by], references: [id])
+  submitter     user?       @relation("ReportSubmittedBy", fields: [submitted_by], references: [id])
+  resolver      user?       @relation("ReportResolvedBy", fields: [resolved_by], references: [id])
 }
 
 enum ReportType {
