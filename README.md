@@ -36,7 +36,7 @@ Try out this [demo](https://servihub-report-handling-system-4qte.vercel.app/)! S
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the repository
 
@@ -79,6 +79,8 @@ npx prisma db seed
 npm run dev
 ```
 * Your app will be running at `http://localhost:3000`.
+
+---
 
 
 ## Acknowledgements 
