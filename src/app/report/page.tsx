@@ -57,8 +57,8 @@ const ReportPage = () => {
             });
             router.push('/report/report-submitted');
           } catch (error: any) {
-            console.error("Submit error:", error.response?.data || error.message);
-            alert("Submission failed. Check console for details.");
+            const errorMessage = error.response?.data?.error || "Something went wrong. Please try again.";
+            alert(errorMessage);
           }
           
         }
@@ -130,19 +130,25 @@ const ReportPage = () => {
                 </Select>
             </FormControl>
 
-                {selectedReason === "others" && (
-                <FormField
+            {selectedReason === "others" && (
+            <FormField
                 control={form.control}
                 name="custom_reason"
                 render={({ field }) => (
                     <FormItem>
                     <FormControl>
-                        <Input placeholder="Please specify your reason..." {...field} />
+                        <Input 
+                        type="string"
+                        value={field.value ?? ""}
+                        onChange={field.onChange}
+                        placeholder="Please specify your reason..." />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
-                )}/>)}
+            )}/>)}
             </FormItem>)}/>
+
+
 
 
         <FormField
