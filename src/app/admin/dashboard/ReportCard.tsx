@@ -12,7 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { report, user } from "@prisma/client";
 
 type SerializedUser = {
     id: string;
@@ -66,12 +65,17 @@ export function ReportCard({ report }: { report: SerializedReport }) {
       <CardContent>
         <CardDescription><strong>Description:</strong> {report.description || ""}</CardDescription>
         <CardDescription><strong>Submitted by:</strong> [User {report.submitted_by}] {report.submitter?.name || "Unknown"}</CardDescription>
+        <p className="text-sm text-gray-500">Submitted at: {new Date(String(report.created_at)).toLocaleString()}</p>
       </CardContent>
       <CardFooter className="flex justify-between items-center">
+        
         {isResolved && (
+          <div>
           <p className="text-sm text-gray-500">
             Resolved by [Admin {report.resolver?.id }] {report.resolver?.name || "Unknown"}
           </p>
+          <p className="text-sm text-gray-500">Resolved at: {new Date(String(report.resolved_at)).toLocaleString()}</p>
+         </div>
         )}
         {!isResolved && (
           <Button variant="outline" onClick={handleResolve}>

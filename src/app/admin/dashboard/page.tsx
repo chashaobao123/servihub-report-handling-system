@@ -26,19 +26,13 @@ export default async function Dashboard() {
 
 
 function serializeBigInts(value: any): any {
-  if (typeof value === "bigint") {
-    return value.toString();
-  }
-
-  if (Array.isArray(value)) {
-    return value.map(serializeBigInts);
-  }
-
-  if (value !== null && typeof value === "object") {
+  if (typeof value === "bigint") return value.toString();
+  if (value instanceof Date) return value.toISOString();
+  if (Array.isArray(value)) return value.map(serializeBigInts);
+  if (value && typeof value === "object") {
     return Object.fromEntries(
       Object.entries(value).map(([key, val]) => [key, serializeBigInts(val)])
     );
   }
-
   return value;
 }
