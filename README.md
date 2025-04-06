@@ -88,4 +88,4 @@ npm run dev
 * Prisma
 * shadn/ui
 * Vercel
-* [Cosden Solutions](https://github.com/cosdensolutions/code) for implementation of JWT Token
+* [Cosden Solutions](https://github.com/cosdensolutions/code) for implementation of JWT with cookies
