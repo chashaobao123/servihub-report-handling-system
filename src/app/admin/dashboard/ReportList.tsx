@@ -17,6 +17,7 @@ const sortOptions = [
 
 export default function ReportList({ reports }: { reports: SerializedReport[] }) {
   const [sortToggle, setSortToggle] = useState<typeof sortOptions[number]>("Date Submitted");
+  const [isDescending, setIsDescending] = useState<boolean>(true);
 
   const [resolveFilter, setResolveFilter] = useState<string[]>([]);
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
@@ -38,20 +39,22 @@ export default function ReportList({ reports }: { reports: SerializedReport[] })
   });
 
   const sortedReports = [...filteredReports].sort((a, b) => {
+    const multiplier = isDescending ? -1 : 1;
+    
     switch (sortToggle) {
       case "Date Submitted":
-        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        return multiplier * (new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
       case "Date Resolved":
-        return (
-          new Date(b.resolved_at || 0).getTime() -
-          new Date(a.resolved_at || 0).getTime()
-        );
+        return ( multiplier * (
+          new Date(a.resolved_at || 0).getTime() -
+          new Date(b.resolved_at || 0).getTime()
+        ));
       case "Target ID":
-        return parseInt(a.target_id) - parseInt(b.target_id);
+        return multiplier * (parseInt(a.target_id) - parseInt(b.target_id));
       case "Submitted By":
-        return (a.submitter?.name || "").localeCompare(b.submitter?.name || "");
+        return multiplier * ((a.submitter?.name || "").localeCompare(b.submitter?.name || ""));
       case "Resolved By":
-        return (a.resolver?.name || "").localeCompare(b.resolver?.name || "");
+        return multiplier * ((a.resolver?.name || "").localeCompare(b.resolver?.name || ""));
       default:
         return 0;
     }
@@ -64,11 +67,13 @@ export default function ReportList({ reports }: { reports: SerializedReport[] })
           sortToggleList={sortOptions}
           sortToggle={sortToggle}
           setSortToggle={setSortToggle}
+          isDescending={isDescending}
+          setIsDescending={setIsDescending}
         />  
         <FilterToggles
           resolveFilters={["resolved", "unresolved"]}
           typeFilters={["review", "user", "business", "service", "other"]}
-          reasonFilters={["spam", "harrassment", "misleading", "inappropriate", "other"]}
+          reasonFilters={["spam", "harrassment", "misleading", "inappropriate"]}
           selectedResolveFilters={resolveFilter}
           selectedTypeFilters={typeFilter}
           selectedReasonFilters={reasonFilter}

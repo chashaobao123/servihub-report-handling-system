@@ -10,10 +10,11 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle,
   } from "@/components/ui/navigation-menu"
-import { Navigation } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { logout } from '../admin/actions';
   
 
-const NavBar = () => {
+const NavBar = ({ isLoggedIn } : { isLoggedIn:boolean }) => {
     const currentPath = usePathname();
     console.log(currentPath)
 
@@ -21,7 +22,7 @@ const NavBar = () => {
     <nav className='flex space-x-6 border-b mb-5 px-5 h-14 items-center'>
       <NavigationMenu>
         <NavigationMenuList>
-            <NavigationMenuItem className='space-x-6'/> ServiHub
+            <NavigationMenuItem className='space-x-6'>ServiHub</NavigationMenuItem>
 
             <NavigationMenuItem>
                 <Link href="/report" legacyBehavior passHref>
@@ -38,10 +39,15 @@ const NavBar = () => {
                 </NavigationMenuLink>
                 </Link>
             </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
 
-        </NavigationMenuList>
-        </NavigationMenu>
 
+            {isLoggedIn && (
+              <Button type="submit" variant="outline" onClick={() => logout()}>
+                Logout
+              </Button>
+            )}        
     </nav>
   )
 }
