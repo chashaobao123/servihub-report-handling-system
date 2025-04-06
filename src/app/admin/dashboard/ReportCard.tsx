@@ -65,8 +65,12 @@ export function ReportCard({ report }: { report: SerializedReport }) {
       <CardContent>
         <CardDescription><strong>Description:</strong> {report.description || ""}</CardDescription>
         <CardDescription><strong>Submitted by:</strong> [User {report.submitted_by}] {report.submitter?.name || "Unknown"}</CardDescription>
-        <p className="text-sm text-gray-500">Submitted at: {new Date(String(report.created_at)).toLocaleString()}</p>
-      </CardContent>
+        <p className="text-sm text-gray-500">
+            Submitted at: {new Date(report.created_at).toLocaleString("en-SG", {
+                timeZone: "Asia/Singapore",
+                dateStyle: "short",
+                timeStyle: "short",
+              })}</p>      </CardContent>
       <CardFooter className="flex justify-between items-center">
         
         {isResolved && (
@@ -74,7 +78,12 @@ export function ReportCard({ report }: { report: SerializedReport }) {
           <p className="text-sm text-gray-500">
             Resolved by [Admin {report.resolver?.id }] {report.resolver?.name || "Unknown"}
           </p>
-          <p className="text-sm text-gray-500">Resolved at: {new Date(String(report.resolved_at)).toLocaleString()}</p>
+          <p className="text-sm text-gray-500">
+            Resolved at: {new Date(report.resolved_at || "").toLocaleString("en-SG", {
+                timeZone: "Asia/Singapore",
+                dateStyle: "short",
+                timeStyle: "short",
+              })}</p>
          </div>
         )}
         {!isResolved && (

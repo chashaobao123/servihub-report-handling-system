@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { logout } from "../actions";
 import ReportList from "./ReportList";
 import { prisma } from "../../../../prisma/client";
+import { serializeBigInts } from "../../../lib/utils";
 import type { SerializedReport } from "./types";
 
 export default async function Dashboard() {
@@ -24,15 +24,3 @@ export default async function Dashboard() {
   );
 }
 
-
-function serializeBigInts(value: any): any {
-  if (typeof value === "bigint") return value.toString();
-  if (value instanceof Date) return value.toISOString();
-  if (Array.isArray(value)) return value.map(serializeBigInts);
-  if (value && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value).map(([key, val]) => [key, serializeBigInts(val)])
-    );
-  }
-  return value;
-}

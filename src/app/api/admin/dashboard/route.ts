@@ -5,6 +5,7 @@ import { prisma } from "../../../../../prisma/client";
 import { z } from "zod";
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
+import { serializeBigInts } from "@/lib/utils";
 
 const resolveSchema = z.object({
   reportId: z.coerce.bigint(),
@@ -48,23 +49,3 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
-
-
-function serializeBigInts(value: any): any {
-    if (typeof value === "bigint") {
-      return value.toString();
-    }
-  
-    if (Array.isArray(value)) {
-      return value.map(serializeBigInts);
-    }
-  
-    if (value !== null && typeof value === "object") {
-      return Object.fromEntries(
-        Object.entries(value).map(([key, val]) => [key, serializeBigInts(val)])
-      );
-    }
-  
-    return value;
-  }
-  
