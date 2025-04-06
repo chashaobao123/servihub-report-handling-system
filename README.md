@@ -1,36 +1,89 @@
-# servihub-report-handling-system
+# ServiHub Report System
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A full-stack web application built with **Next.js 14 App Router**, **Prisma**, and **PostgreSQL**, designed to allow users to submit reports and for admins to manage them with authentication, filters, and sorting tools.
 
-## Getting Started
+## Live Demo
 
-First, run the development server:
+Try out this [demo](https://servihub-report-handling-system-4qte.vercel.app/)! Simply use either user to test the features:
+* User: {user_id: 2}
+* Admin : {user_id: 1, email: admin@servihub.com}
+
+---
+
+## Features
+
+- Submit reports by type, reason, and target ID
+- Admin login with session-based authentication using JWT
+- View, filter, and sort reports by:
+  - Status (resolved/unresolved)
+  - Type (user, review, etc.)
+  - Reason (spam, harassment, etc.)
+  - Date Submitted, Date Resolved, etc.
+- Resolve reports and track admin handling
+- Client/server-safe BigInt serialization
+- Fully deployed on [Vercel](https://servihub-report-handling-system-4qte.vercel.app/)
+
+---
+
+## Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org)
+- **Database**: PostgreSQL
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Authentication**: JWT with cookies
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Deployment**: [Vercel](https://vercel.com)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/servihub-report-system.git
+cd servi-hub-report-system
+```
+### 2. Intall dependencies
+* In your terminal, run the following:
+```
+npm install
+```
+### 3. Set up environment variables
+* Create a new .env folder
+* Follow this [Prisma Guide](https://www.prisma.io/nextjs) to set up an existing database. 
+* In your .env folder, set your `DATABASE_URL` to your database.
+* Create your `SESSION_SECRET` key.
+```
+// .env 
+
+DATABASE_URL = "replace-with-your-url"
+SESSION_SECRET = your-super-secret-session-key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. Set up database
+* In your terminal, run prisma migrations and generate the client.
+```
+npx prisma generate
+npx prisma db push
+```
+* Seed the database with the seed file. You may add more inputs in the seed file to populate the user database.
+* In your terminal, run:
+```
+npx prisma db seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Run the developer server
+* In your terminal, run:
+```
+npm run dev
+```
+* Your app will be running at `http://localhost:3000`.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acknowledgements 
+* Next.js
+* Prisma
+* shadn/ui
+* Vercel
+* [Cosden Solutions](https://github.com/cosdensolutions/code) for implementation of JWT Token
